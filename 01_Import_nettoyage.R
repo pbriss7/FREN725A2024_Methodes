@@ -16,7 +16,7 @@ inst_ext_f <- function(extension) {
   require(extension, character.only = TRUE)
 }
 
-extensions <- c("stringr",                              # Module pour la manipulation des chaînes de caractères
+extensions <- c("stringr",                            
                 "data.table",
                 "lsa",
                 "tm",
@@ -28,14 +28,14 @@ extensions <- c("stringr",                              # Module pour la manipul
                 "Matrix",
                 "text2vec",
                 "tidyr",
-                "udpipe")                             # Module pour la manipulation des structures de données (tables)
+                "udpipe")                             
 
 sapply(extensions, inst_ext_f)
 
 # Nettoyage de l'environnement
 rm(list = ls())
 
-#### Création d'un dossier pour sauvegarder le texte ----
+#### Création d'un dossier pour sauvegarder le texte et les données produites ----
 if(!dir.exists("donnees")) {dir.create("donnees")}
 
 
@@ -162,7 +162,7 @@ table_filtree_f(antidictionnaire = antidictionnaire_court)        #
 
 
 
-# Exercice 4: composez votre propre antidictionnaire en complétant le code ci-dessous, puis insérez-le dans la fonction pour voir le résultat
+# Exercice 4 (optionnel): composez votre propre antidictionnaire en complétant le code ci-dessous, puis insérez-le dans la fonction pour voir le résultat
 
 mon_dictionnaire_personnel <- c("plus", "comme", #etc.              # Ajoutez autant de mots que vous le souhaitez
                                 )

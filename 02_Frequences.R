@@ -22,7 +22,7 @@ inst_ext_f <- function(extension) {
   require(extension, character.only = TRUE)
 }
 
-extensions <- c("stringr",                              # Module pour la manipulation des chaînes de caractères
+extensions <- c("stringr",                              
                 "tibble",
                 "quanteda",
                 "quanteda.textplots",
@@ -30,7 +30,7 @@ extensions <- c("stringr",                              # Module pour la manipul
                 "wordcloud2",
                 "htmlwidgets",
                 "webshot",
-                "patchwork")                                    # Module pour créer des tableau 
+                "patchwork")                                    
 
 sapply(extensions, inst_ext_f)
 webshot::install_phantomjs(force = TRUE)
@@ -54,11 +54,18 @@ maria_dfm <- maria_df |> corpus(docid_field = "doc_id",
   tokens() |> 
   dfm()
 
+# On peut observer une partie de cette "fameuse" matrice Documents-mots!
+maria_dfm
+
+# Sauvegarde de la structure de données
 saveRDS(maria_dfm, "donnees/maria_dfm.RDS")
 
 
 #### Création d'une deuxième matrice Documents-mots avec le même texte traité. La matrice sera pondérée et normalisée ----
 maria_tfidf_dfm <- maria_dfm |> dfm_tfidf(scheme_tf = "propmax", scheme_df = "inversemax")
+
+maria_tfidf_dfm
+
 saveRDS(maria_tfidf_dfm, "donnees/maria_tfidf_dfm.RDS")
 
 
@@ -68,6 +75,8 @@ maria_lemma_dfm <- maria_df |> corpus(docid_field = "doc_id",
                                 docvars = "chap") |> 
   tokens() |> 
   dfm() |> dfm_tfidf(scheme_tf = "propmax", scheme_df = "inversemax")
+
+maria_lemma_dfm
 
 saveRDS(maria_lemma_dfm, "donnees/maria_lemma_dfm.RDS")
 
