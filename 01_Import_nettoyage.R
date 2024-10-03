@@ -7,8 +7,7 @@
 # 1) L'élimination du péritexte et des titres de chapitres (ex. "CHAPITRE I") qui sont intégrés au texte du roman;
 # 2) Élimination des mots fonctionnels;
 # 3) Segmentation du texte en jetons (ou "tokens");
-# 3) Annotation automatique et extraction des lemmes (formes neutres des mots);
-# 4) Pondération TF-IDF du texte et normalisation.
+# 4) Annotation automatique et extraction des lemmes (formes neutres des mots);
 
 # Les différentes versions du texte seront emmagasinées dans un tableau de données (data frame).
 

@@ -4,11 +4,15 @@
 
 # Maintenant que nous avons traité et transformé notre texte en un jeu de données, nous pouvons commencer à l'explorer.
 # L'analyse la plus simple à laquelle on puisse se livrer, dans le domaine du TAL, est celle de la fréquence des mots.
-# L'analyse de fréquence lexicale permet d'obtenir un apercu des thèmes qui traversent des documents, de la présence/absence de personnages dans des chapitres données, etc.
-# Dans un premier temps, nous allons dons, avec notre structure de données, créer une table de fréquence et indiquer, pour chacun des chapitres, la fréquence lexicale brute.
-# Nous allons ensuite créer une petite application Shiny pour visualiser des fréquences sous la forme de nuages de mots.
-# Ensuite, nous allons pondérer et normaliser les ensembles de mots de chaque chapitre de manière à faire ressortir, au sein de chaque chapitre, les mots qui sont les plus distinctifs par rapport à tous les autres.
-# Dernière étape, nous allons créer une troisième matrice Documents-mots pondérée et normalisée contenant les lemmes, puis comparer celle-ci avec la deuxième
+# L'analyse de la fréquence lexicale permet d'obtenir un apercu des thèmes qui traversent des documents, de la présence/absence de personnages dans des chapitres donnés, etc.
+# La fréquence peut être brute (nombre de fois que tel mot apparaît dans tel chapitre) ou elle peut être pondérée et, possiblement, normalisée.
+# La pondération peut par exemple accorder un poids plus important à certains mots selon qu'ils sont ou non largement distribués à travers tous les documents. Cette pondération est appelée TF-IDF (Term Frequency / Inversed Document Frequency)
+# L'exploration du lexique se fera sur trois types de matrices:
+# 1) Une matrice Documents-mots avec les fréquences brutes utilisant le texte traité du tableau `maria_df`;
+# 2) Une matrice Documents-mots avec les fréquences pondérées (TF-IDF) et normalisées le texte traité du tableau `maria_df`";
+# 3) Une matrice Documents-mots avec les fréquences pondérées (TF-IDF) et normalisées utilisant les lemmes du tableau `maria_df`.
+# Ces matrices permettront de visualiser les résultats sous la forme de nuages de mots et de diagrammes.
+
 
 #### Chargement des modules supplémentaires ----
 inst_ext_f <- function(extension) {
