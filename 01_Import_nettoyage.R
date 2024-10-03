@@ -11,6 +11,8 @@
 
 # Les différentes versions du texte seront emmagasinées dans un tableau de données (data frame).
 
+# Des exercices sur les expressions régulières sont proposées dans le script. Les réponses aux questions sont fournies à la toute fin du script.
+
 
 
 
