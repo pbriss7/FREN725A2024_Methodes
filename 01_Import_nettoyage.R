@@ -1,10 +1,18 @@
-###################################################
-#### Consolidation des connaissances - Atelier ####
-###################################################
+############################################
+#### Importation et traitement du texte ####
+############################################
 
-############################################################
-#### Premier script: importation et traitement du texte ####
-############################################################
+# Dans ce premier script, nous allons importer le texte d'un roman français depuis le Projet Gutemberg, puis traiter (pou prétraiter) ce texte pour pouvoir ensuite explorer son contenu lexical (script 2).
+# Le prétraitement implique:
+# 1) L'élimination du péritexte et des titres de chapitres (ex. "CHAPITRE I") qui sont intégrés au texte du roman;
+# 2) Élimination des mots fonctionnels;
+# 3) Segmentation du texte en jetons (ou "tokens");
+# 3) Annotation automatique et extraction des lemmes (formes neutres des mots);
+# 4) Pondération TF-IDF du texte et normalisation.
+
+# Les différentes versions du texte seront emmagasinées dans un tableau de données (data frame).
+
+
 
 
 #### Installation et activation des modules supplémentaires

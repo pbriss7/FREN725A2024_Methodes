@@ -1,10 +1,6 @@
-############################################################
-####      Consolidation des connaissances - Atelier     ####
-############################################################
-
-############################################################
-#### Deuxième script: fréquences brutes et pondérées.   ####
-############################################################
+################################
+#### Exploration du texte   ####
+################################
 
 # Maintenant que nous avons traité et transformé notre texte en un jeu de données, nous pouvons commencer à l'explorer.
 # L'analyse la plus simple à laquelle on puisse se livrer, dans le domaine du TAL, est celle de la fréquence des mots.
