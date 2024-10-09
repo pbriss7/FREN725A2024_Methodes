@@ -135,6 +135,7 @@ comparer_poids_f(chapitre = 2, n = 25)
 
 # On peut visualiser le même résultat sous la forme d'un nuage de mots
 # Fonction pour comparer les nuages de mots
+
 comparer_nuages_f <- function(chapitre, n = 100) {
   # Extraire les fréquences brutes et pondérées TF-IDF
   freq_brute <- maria_dfm |> dfm_subset(chap == chapitre) |> textstat_frequency(n = n)
@@ -197,4 +198,7 @@ comparer_nuages_f(3, 100)
 
 
 
+
+#### Bibliographie ----
+# Matthew L. Jockers et Rosamond Thalken, Text Analysis With R For Students in Literature, Springer, 2020.
 
