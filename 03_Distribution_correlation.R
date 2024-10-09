@@ -10,7 +10,6 @@
 
 # L'atelier s'inspire des chapitres 4 et 6 de Jockers (2020).
 
-
 #### Chargement des modules supplémentaires ----
 inst_ext_f <- function(extension) {
   if(!extension %in% rownames(installed.packages())) {
@@ -57,7 +56,7 @@ maria_split_v[1:100]
 length(maria_split_v)
 
 # On voudrait maintenant observer sous la forme d'un diagramme de dispersion la distribution de motifs (comme "François") le long du roman.
-# La méthode est expliquée en détail dans Jockers (2020), p. ***-***. Je me contente ici de fabriquer une première fonction qui permette, pour un mot donné, de repérer les occurrences le long du vecteur-roman.
+# La méthode est expliquée en détail dans Jockers (2020), p. 37-67. Je me contente ici de fabriquer une première fonction qui permette, pour un mot donné, de repérer les occurrences le long du vecteur-roman.
 
 n_time_v <- seq(from = 1, to = length(maria_split_v))
 w_count_v <- rep(NA, times = length(n_time_v))
@@ -82,7 +81,7 @@ diagramme_dispersion_f("François")
 
 # Il y a plusieurs manières d'améliorer ce diagramme.
 # Tout d'abord, la fonction pourrait accepter une expression régulière au lieu d'un simple mot. 
-# Cela permettrait par exemple d'attraper toutes les variantes d'un concept, voire de composer des dictionnaires.
+# Cela permettrait par exemple d'attraper toutes les variantes d'un nom, voire tous les mots renvoyant à un concept ("froid", "neige", "hiver").
 # Commençons par créer une fonction qui accepte un motif, puis voyons à quoi cela peut servir.
 
 diagramme_dispersion_regex_f <- function(expression, mot_simplifie = "", ignore_case = FALSE) {
@@ -106,12 +105,12 @@ diagramme_dispersion_regex_f <- function(expression, mot_simplifie = "", ignore_
 }
 
 # Essayons avec "François". À noter que la fonction prend deux arguments: l'expression régulière et un mot qui puisse servir de thème. Si on ne fournit pas ce deuxième argument, l'expression régulière sera affichée dans le titre.
-diagramme_dispersion_regex_f("fran.ois", "François", ignore_case = TRUE)
+diagramme_dispersion_regex_f(expression = "fran.ois", mot_simplifie = "François", ignore_case = TRUE)
 
 # Avec une telle fonction, on peut donner à voir la distribution non seulement d'un mot, mais d'un concept ou d'un thème relié à un ensemble de mots.
 # Par exemple, si je suis intéressé par la représentation de la nature.
 
-diagramme_dispersion_regex_f("forêt|arbre", "Nature", ignore_case = TRUE)
+diagramme_dispersion_regex_f(expression = "forêt|arbre|\\bboisé?\\b", mot_simplifie = "Nature", ignore_case = TRUE)
 
 #### Comparer la distribution de motifs sur l'axe du temps romanesque ----
 
@@ -249,6 +248,7 @@ plot_comparative_word_occurrences_f(dt = maria_phrases_df, motif_personnage, mot
 # Dans l'exemple ci-dessus, le mot "états" peut certes renvoyer aux États-Unis, mais il pourrait également renvoyer à des "états" d'un personnage, par exemple.
 # Il convient donc de vérifier les éléments qui sont "attrapés" par l'expression de termes polysémiques.
 # Pour faire cela, on utilisera avantageusement un concordancier qui renverra, pour un motif donné, les mots qui précèdent et ceux qui suivent.
+
 # La fonction ci-dessous contient quatre arguments:
 # 1) Un texte sous la forme d'un vecteur (tout le texte contenu dans un seul élément)
 # 2) Un motif, c'est-à-dire une expression régulière
@@ -292,9 +292,9 @@ concordancier_f <- function(texte, motif, contexte, ignore_case = FALSE) {
 concordancier_f(texte = maria_v, motif = "\\bville|\\bcités?\\b|états|amérique", contexte = 15, ignore_case = TRUE)
 
 #### Corrélation ----
-# Comment faire pour savoir si l'idée de l'Amérique, définie grossièrement par notre expression régulière, et le personnage de Lorenzo sont corrélées?
+# Comment faire pour savoir si l'idée de l'Amérique, définie grossièrement par notre expression régulière, et le personnage de Lorenzo sont statistiquement corrélées, comme semble le montrer le diagramme?
 # La corrélation est un concept utilisé pour mesurer l'association entre deux variables. 
-# Si cette association est forte, le changement de valeur de la variable A suivra le changement de valeur de la variable B.
+# Si cette association est forte, la variation de la valeur de la variable A suivra la variation de valeur de la variable B.
 # Lorsque les valeurs de deux variables augmentent ou diminuent ensemble, la corrélation est dite positive.
 # Lorsque les valeurs des deux variables augmentent ou diminuent de manière inversée, la corrélation est dite négative.
 # Pour mesurer la force de la relation ou de l'association entre les variables, on utilise fréquemment le coefficient de Pearson.
@@ -375,11 +375,12 @@ matrice_correlation_f <- function(dt = maria_df, motif_1, motif_2, ignore_case=F
 
 
 
-cor(matrice_correlation_f(dt = maria_df, motif_1 = "eutrope", "voix", ignore_case = TRUE))
+cor(matrice_correlation_f(dt = maria_df, motif_1 = "lorenzo", "états|amérique", ignore_case = TRUE))
 
 # Ou, pour extraire seulement l'information pertinente
 cor(matrice_correlation_f(dt = maria_df, motif_1 = "états|amérique|luxe", "lorenzo", ignore_case = TRUE)[,1],
     matrice_correlation_f(dt = maria_df, motif_1 = "états|amérique|luxe", "lorenzo", ignore_case = TRUE)[,2])
+
 
 # Le résultat est une mesure de la force de la dépendance linéaire entre les valeurs (fréquences relatives) des deux termes.
 # Elle montre une très forte association positive indiquant que les probabilités qu'il soit question du personnage de Lorenzo lorsqu'il est question des États-Unis sont très élevées.
@@ -405,7 +406,7 @@ cor.test(matrice_correlation_f(dt = maria_df, motif_1 = "états|amérique|luxe",
          method = "pearson")
 
 
-# Dans le test de corrélation que nous avons fait, la valeur "p" est très nettement inférieure à 0.05, ce qui indique une très forte présomption contre l'hypothèse nulle.
+# Dans le test de corrélation que nous avons fait, la valeur "p" est très nettement inférieure à 0.05 (elle est de 0.00000001281), ce qui indique une très forte présomption contre l'hypothèse nulle.
 # Les chances que nous obtenions par hasard le même résultat que celui obtenu, soit une très forte corrélation entre les motifs "États" et "Lorenzo", sont extrêmement faibles.
 # On peut donc rejeter l'hypothèse nulle et affirmer qu'une corrélation statistiquement significative existe entre les motifs.
 
