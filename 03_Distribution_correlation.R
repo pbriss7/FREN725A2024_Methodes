@@ -42,7 +42,7 @@ maria_v <- readLines("donnees/maria_sans_epitexte.txt") |> paste(collapse = " ")
 maria_split_v <- strsplit(maria_v, "\\W") |> unlist()
 
 # La segmentation du texte a généré des éléments vides, que nous allons éliminer pour obtenir un vecteur propre ne contenant que les mots.
-maria_split_v[1:10]
+maria_split_v[1:100]
 
 mots_pleins <- which(maria_split_v != "")
 
@@ -77,7 +77,7 @@ diagramme_dispersion_f <- function(mot) {
   return(diagramme_plot)
 }
 
-diagramme_dispersion_f("François")
+diagramme_dispersion_f("lorenzo")
 
 # Il y a plusieurs manières d'améliorer ce diagramme.
 # Tout d'abord, la fonction pourrait accepter une expression régulière au lieu d'un simple mot. 
@@ -105,7 +105,7 @@ diagramme_dispersion_regex_f <- function(expression, mot_simplifie = "", ignore_
 }
 
 # Essayons avec "François". À noter que la fonction prend deux arguments: l'expression régulière et un mot qui puisse servir de thème. Si on ne fournit pas ce deuxième argument, l'expression régulière sera affichée dans le titre.
-diagramme_dispersion_regex_f(expression = "fran.ois", mot_simplifie = "François", ignore_case = TRUE)
+diagramme_dispersion_regex_f(expression = "hiver|froid|glace|neige", mot_simplifie = "Hiver", ignore_case = TRUE)
 
 # Avec une telle fonction, on peut donner à voir la distribution non seulement d'un mot, mais d'un concept ou d'un thème relié à un ensemble de mots.
 # Par exemple, si je suis intéressé par la représentation de la nature.
@@ -289,7 +289,7 @@ concordancier_f <- function(texte, motif, contexte, ignore_case = FALSE) {
   }
 }
 
-concordancier_f(texte = maria_v, motif = "\\bville|\\bcités?\\b|états|amérique", contexte = 15, ignore_case = TRUE)
+concordancier_f(texte = maria_v, motif = "états", contexte = 10, ignore_case = TRUE)
 
 #### Corrélation ----
 # Comment faire pour savoir si l'idée de l'Amérique, définie grossièrement par notre expression régulière, et le personnage de Lorenzo sont statistiquement corrélées, comme semble le montrer le diagramme?
@@ -335,6 +335,7 @@ matrice_correlation_f <- function(dt = maria_df, motif_1, motif_2) {
   return(premier_deuxieme_motifs_m)
 }
 
+# La ligne de code ci-dessous utilise la fonction ci-dessus à l'intérieur de la fonction `cor()`, qui calcule la corrélation.
 cor(matrice_correlation_f(dt = maria_df, motif_1 = "Lorenzo", "États"))
 
 
@@ -373,14 +374,10 @@ matrice_correlation_f <- function(dt = maria_df, motif_1, motif_2, ignore_case=F
   return(premier_deuxieme_motifs_m)
 }
 
-
-
-cor(matrice_correlation_f(dt = maria_df, motif_1 = "lorenzo", "états|amérique", ignore_case = TRUE))
-
-# Ou, pour extraire seulement l'information pertinente
-cor(matrice_correlation_f(dt = maria_df, motif_1 = "états|amérique|luxe", "lorenzo", ignore_case = TRUE)[,1],
-    matrice_correlation_f(dt = maria_df, motif_1 = "états|amérique|luxe", "lorenzo", ignore_case = TRUE)[,2])
-
+# Dans la ligne ci-dessous, on passe à la fonction `cor()` de R, qui calcule la corrélation entre deux variable d'une matrice, la fonction créée ci-dessus.
+cor(
+  matrice_correlation_f(dt = maria_df, motif_1 = "lorenzo", "états|amérique", ignore_case = TRUE)
+  )
 
 # Le résultat est une mesure de la force de la dépendance linéaire entre les valeurs (fréquences relatives) des deux termes.
 # Elle montre une très forte association positive indiquant que les probabilités qu'il soit question du personnage de Lorenzo lorsqu'il est question des États-Unis sont très élevées.
