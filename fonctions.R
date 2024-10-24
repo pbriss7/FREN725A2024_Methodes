@@ -54,8 +54,6 @@ pretraitement_f <- function(chaine,
 }
 
 
-
-
 calcul_tfidf_f <- function(term_matrix) {
   # Nombre de documents
   num_docs <- nrow(term_matrix)
