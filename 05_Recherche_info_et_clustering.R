@@ -1,8 +1,8 @@
-#####################################
-#### Texte et espaces vectoriels ####
-#####################################
+###########################################
+#### Le modèle vectoriel et ses usages ####
+###########################################
 
-# On a parlé plus d'une fois déjà du modèle vectoriel et de son importance dans la recherche d'information et les tâches de classification.
+# On a déjà parlé du modèle vectoriel et de son importance dans la recherche d'information et les tâches de classification.
 # L'atelier qui suit vise à implémenter un tel espace avec les documents composant le corpus XYZ, et à voir ce qu'on peut en tirer.
 
 #### L'espace vectoriel ----
