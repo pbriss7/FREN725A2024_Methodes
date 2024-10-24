@@ -4,7 +4,7 @@
 
 # L'évaluation de la variété ou « richesse » lexicale est souvent mobilisée en humanités numériques pour caractériser et comparer les parties d'un même texte ou encore des collections de textes
 # de différents auteurs, périodes ou sous-genres. C'est également une donnée qui est souvent prise en compte dans les disputes entourant l'attribution de textes anonymes à des écrivains connus.
-# L'une des applications célèbres de la mesure de la variété lexicale a été faite sur l'oeuvre entière d'Agatha Christie, en appui à la thèse d'une atteinte de la maladie d'Alzheimer (Lancashire, 2009 et 2011).
+# L'une des applications célèbres de la mesure de la variété lexicale a été faite sur l'œuvre entière d'Agatha Christie, en appui à la thèse d'une atteinte de la maladie d'Alzheimer (Lancashire, 2009 et 2011).
 # Une diminution progressive et notable de la variété lexicale est en effet observée dans les romans de la romancière britannique au fil des décennies.
 # Nous allons explorer dans cet atelier une mesure de la variété lexicale, la taille relative du vocabulaire (TTR, pour "type-token ratio").
 # Nous allons également mesurer la longueur, la densité et la profondeur des phrases d'un texte en tant que mesures de leur complexité.
@@ -46,7 +46,7 @@ View(maria_df)
 # Le ratio "type-token" est calculé en divisant le nombre de mots uniques d'un texte par le nombre total de mots de ce même texte.
 # Avant de faire ce calcul, on peut, selon les objectifs de l'opération dans le contexte de la recherche, transformer tous les caractères du texte à traiter en minuscules et éliminer les mots fonctionnels.
 # Nous allons construire une première fonction qui prendra un texte en entrée, une seule longue chaine de caractères (ce sera, par exemple, tout le texte d'un chapitre).
-# Cette fonction transformera la casse des caractères, éliminera la ponctuation et les espaces superflus, segmentera le texte en unités lexicales et éliminera les mots fonctionnels.
+# Cette fonction transformera la casse des caractères, éliminera la ponctuation et les espaces superflues, segmentera le texte en unités lexicales et éliminera les mots fonctionnels.
 # Le résultat renvoyé par la fonction sera un vecteur comprenant seulement les unités lexicales restantes, tout en minuscules.
 
 # L'autre fonction que nous allons créer utilisera la première pour calculer les deux mesures dont nous avons besoin pour obtenir le TTR:
@@ -101,7 +101,7 @@ ttr_f(phrase3)
 # Les 10 mots de cette "phrase" sont identiques, ce qui donne un résultat TTR de 10%.
 
 # 3) Avant de calculer le TTR pour chacun de nos chapitres, nous allons calculer leur longueur, simplement pour nous donner une idée du nombre total de mots qu'ils contiennent.
-# Le résultat sera emmagasiné dans une colonne ajoutée au table et appelée "longueur"
+# Le résultat sera emmagasiné dans une colonne appelée "longueur"
 maria_df$longueur <- sapply(maria_df$texte, function(un_texte) length(pretraitement_f(un_texte)))
 
 # Vous pouvez observer le résultat avec View()
@@ -128,7 +128,7 @@ cor.test(unlist(maria_df$longueur), unlist(maria_df$ttr))
 # Pourrions-nous trouver une manière de neutraliser ce biais introduit par la longueur?
 
 # On peut neutraliser ce biais de différentes manières.
-# L'une d'elle consiste à segmenter les textes que nous voulons comparer en un nombre fixe de mots, en tranches de 100 mots, par exemple.
+# L'une d'elles consiste à segmenter les textes que nous voulons comparer en un nombre fixe de mots, en tranches de 100 mots, par exemple.
 # Le calcul du TTR sera fait sur chacune de ces tranches, puis on fera la moyenne de ces multiples TTR.
 
 # Pour être clair, si un chapitre comporte 350 mots, la fonction calculera le TTR de quatre segments:
@@ -156,7 +156,7 @@ moyenne_segments_ttr_f <- function(un_texte, nbre_mots = 100) {
 }
 
 # Application de la fonction à un texte simple.
-phrase <- "Il était une foi un petit chaperon rouge. Il était notable que ce chaperon rouge aimait, par-dessus tout, être auprès de sa mère-grand."
+phrase <- "Il était une fois un petit chaperon rouge. Il était notable que ce chaperon rouge aimait, par-dessus tout, être auprès de sa mère-grand."
 moyenne_segments_ttr_f(phrase)
 
 # Application de la fonction à nos chapitres et inscription du résultat dans une nouvelle colonne.
@@ -207,9 +207,9 @@ maria_df$phrase_lng_moy <- sapply(maria_df$texte, longueur_phrase_f)
 View(maria_df)
 
 # Cette première mesure de la complexité lexicale, la longueur des phrases, est assez primaire. 
-# Une phrase pourrait être longue, par exemple si elle contient de nombreux adjectifs sans pour autant être extrêmement complexe au point de vue syntaxique.
+# Une phrase pourrait être longue — par exemple si elle contient de nombreux adjectifs — sans pour autant être extrêmement complexe au point de vue syntaxique.
 # Ce degré de complexité peut être mesuré d'une autre manière, en calculant par exemple le nombre de propositions que contient une phrase.
-# Pour obtenir cette mesure, que nous appellerons "densité syntaxique", il faut d'abord procéder à l'annotation morpho-syntaxique d'un document à l'aide d'un modèle d'annotation automatique.
+# Pour obtenir cette mesure, que nous appellerons "densité syntaxique", il faut d'abord procéder à l'annotation morphosyntaxique d'un document à l'aide d'un modèle d'annotation automatique.
 # On a vu déjà la manière de faire cela avec l'extension `udpipe`. On utilisera à nouveau cette extension ici et on se servira des étiquettes de relations des propositions `dep_rel`. 
 
 # Chargement du modèle udpipe
@@ -269,7 +269,7 @@ mean(maria_df$phrase_densite_moy)
 
 # La fonction principale ci-dessous implémente cette mesure.
 # Comme vous le verrez, elle tire également profit de l'annotation automatique des phrases par udpipe (modèle "french-usd").
-# Dans le résultat d'une annotation comme en propose udpipe, on trouve une colonne appellée "head_token_id" qui fournit le degré de profondeur de chaque mot par rapport à la racine ("root" = 0 profondeur).
+# Dans le résultat d'une annotation comme en propose l'extention udpipe, on trouve une colonne appelée "head_token_id" qui fournit le degré de profondeur de chaque mot par rapport à la racine ("root" = 0 profondeur).
 
 phrase <- "Il était une fois un petit chaperon rouge. On savait dans le voisinage que ce chaperon rouge aimait, par-dessus tout, rester auprès de sa mère-grand."
 udpipe::udpipe_annotate(modele_fr, phrase) |> as.data.frame() |> View()
@@ -278,16 +278,16 @@ udpipe::udpipe_annotate(modele_fr, phrase) |> as.data.frame() |> View()
 # La fonction auxiliaire qu'utilise la précédente prend pour sa part en entrée le résultat de l'annotation morphosyntaxique produite par udpipe, puis calcule la profondeur
 # à partir des colonnes "token_id" et "head_token_id" du tableau d'annotation.
 
-# Note: les deux fonctions suivantes ont été créées avec l'assistance de OpenAI, ChatGPT-4o, version d'octobre 2024.
+# Note: les deux fonctions suivantes ont été créées avec l'assistance d'OpenAI, ChatGPT-4o, version d'octobre 2024.
 
 mesurer_profondeur_syntaxique_f <- function(texte, modele_udpipe = modele_fr) {
   
   # Annoter le texte avec udpipe
   annotations <- udpipe_annotate(object = modele_udpipe, x = texte)
-  annotations <- as.data.table(as.data.frame(annotations)) # Conversion en data.table
+  annotations <- as.data.table(as.data.frame(annotations)) # Convertir le tableau udpipe en data.table
   
   # Initialisation de la profondeur syntaxique
-  annotations[, profondeur := 0] # Crée une colonne 'profondeur'
+  annotations[, profondeur := 0] # Créer une colonne 'profondeur'
   
   # Calculer la profondeur pour chaque token dans chaque phrase
   annotations[, profondeur := sapply(token_id, function(x) {
@@ -300,7 +300,7 @@ mesurer_profondeur_syntaxique_f <- function(texte, modele_udpipe = modele_fr) {
   return(resultats_profondeur$profondeur_moyenne)
 }
 
-# Fonction pour calculer la profondeur d'un token individuel
+# Fonction pour calculer la profondeur d'un "token" individuel
 calculer_profondeur_individuelle_f <- function(current_token, head_token_id, token_id) {
   profondeur <- 0
   
@@ -335,7 +335,7 @@ texte_exemple <- c("Victor Hugo est né en 1802. L'évaluation de la richesse le
 # Calcul de la profondeur syntaxique
 mesurer_profondeur_syntaxique_f(texte_exemple, modele_fr)
 # Le résultat contient deux nombres à décimales (1.14 et 1.75). 
-# Ces deux nombres correspondent à la moyenne des niveaux de profondeur des tokens, donc à la profondeur de chaque phrase.
+# Ces deux nombres correspondent à la moyenne des niveaux de profondeur des "tokens", donc à la profondeur de chaque phrase.
 
 
 # On peut maintenant calculer cette profondeur des phrases pour chacun des chapitres du roman, et ajouter la moyenne de ces résultats au tableau.
@@ -354,7 +354,7 @@ fwrite(maria_df, "donnees/maria_enrichie.csv")
 
 # Les documents que nous allons exploiter maintenant proviennent de la revue de nouvelles littéraires _XYZ_.
 # La table que nous allons importer est le fruit d'un travail de plusieurs dizaines d'heures réalisé par Julien Vallières-Gingras et Yuchen Shi. 
-# Les textes ont été télécharchés en format pdf depuis Érudit; ils ont été océrisés et nettoyés, et leurs métadonnées ont été intégrées à un tableau de données.
+# Les textes ont été téléchargés en format pdf depuis Érudit; ils ont été océrisés et nettoyés, et leurs métadonnées ont été intégrées à un tableau de données.
 
 # La table importée contient 564 nouvelles littéraires écrites par 318 écrivains entre 2012 et 2022.
 # Nous allons alléger un peu la table pour que le travail ultérieur d'annotation soit moins long et coûteux d'un point de vue computationnel.
@@ -461,7 +461,7 @@ cor.test(xyz_phrase_complexite_dt$moyenne_longueur, xyz_phrase_complexite_dt$moy
 cor.test(xyz_phrase_complexite_dt$moyenne_longueur, xyz_phrase_complexite_dt$moyenne_profondeur)
 cor.test(xyz_phrase_complexite_dt$moyenne_densite, xyz_phrase_complexite_dt$moyenne_profondeur)
 
-# La densité et la profondeur sont très fortement corrélés!
+# La densité et la profondeur sont très fortement corrélées!
 
 
 # Nous allons enfin observer la distribution des données pour repérer les cas aberrants (outliers)
@@ -483,7 +483,7 @@ ggplot(xyz_phrase_complexite_dt, aes(x = moyenne_densite, y = moyenne_profondeur
 
 
 # On peut maintenant retourner aux textes et observer les raisons qui font de ces auteurs des cas aberrants.
-# Dans le code ci-desous, écrivez le nom d'un auteur, exécutez le code et observez le ou les textes qui sont produits dans la console.
+# Dans le code ci-dessous, écrivez le nom d'un auteur, exécutez le code et observez le ou les textes qui sont produits dans la console.
 
 
 xyz_leger_dt[auteur == "Danus", .(auteur, texte)]
