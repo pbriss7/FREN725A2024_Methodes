@@ -3,7 +3,7 @@
 #######################################
 
 # Après avoir observé le poids brut et pondéré des mots au sein des chapitres, on peut s'interroger sur la distribution de certains d'entre eux au fil des pages du roman.
-# On peut également se demander si certains mots tendent à se retrouver fréquemment ensemble à l'intérieur d'une fenêtre de mots donnés (un chapitre entier ou un paragraphe, par exemple) ou si au contraire leur co-présence est rare.
+# On peut également se demander si certains mots tendent à se retrouver fréquemment ensemble à l'intérieur d'une fenêtre de mots donnés (un chapitre entier ou un paragraphe, par exemple) ou si, au contraire, leur coprésence est rare.
 # Dans l'atelier qui suit, nous allons d'abord observer la distribution, au sein de Maria Chapdelaine, de certains mots choisis du roman. 
 # Ensuite, nous allons développer une méthode pour mesurer la corrélation des mots.
 # Comme toujours, nous aurons besoin des expressions régulières pour saisir des motifs d'intérêt dans le texte.
@@ -82,7 +82,7 @@ diagramme_dispersion_f("lorenzo")
 # Il y a plusieurs manières d'améliorer ce diagramme.
 # Tout d'abord, la fonction pourrait accepter une expression régulière au lieu d'un simple mot. 
 # Cela permettrait par exemple d'attraper toutes les variantes d'un nom, voire tous les mots renvoyant à un concept ("froid", "neige", "hiver").
-# Commençons par créer une fonction qui accepte un motif, puis voyons à quoi cela peut servir.
+# Commençons par créer une fonction qui prenne en entrée un motif, puis voyons à quoi cela peut servir.
 
 diagramme_dispersion_regex_f <- function(expression, mot_simplifie = "", ignore_case = FALSE) {
   if(mot_simplifie != ""){
@@ -104,7 +104,8 @@ diagramme_dispersion_regex_f <- function(expression, mot_simplifie = "", ignore_
   return(diagramme_plot)
 }
 
-# Essayons avec "François". À noter que la fonction prend deux arguments: l'expression régulière et un mot qui puisse servir de thème. Si on ne fournit pas ce deuxième argument, l'expression régulière sera affichée dans le titre.
+# Essayons avec "François". À noter que la fonction prend deux arguments: 1) l'expression régulière et 2) un mot qui puisse servir de thème. 
+# Si on ne fournit pas ce deuxième argument, l'expression régulière sera affichée dans le titre, ce qui pourrait n'être pas très avantageux du point de vue esthétique!
 diagramme_dispersion_regex_f(expression = "hiver|froid|glace|neige", mot_simplifie = "Hiver", ignore_case = TRUE)
 
 # Avec une telle fonction, on peut donner à voir la distribution non seulement d'un mot, mais d'un concept ou d'un thème relié à un ensemble de mots.
@@ -292,7 +293,7 @@ concordancier_f <- function(texte, motif, contexte, ignore_case = FALSE) {
 concordancier_f(texte = maria_v, motif = "états", contexte = 10, ignore_case = TRUE)
 
 #### Corrélation ----
-# Comment faire pour savoir si l'idée de l'Amérique, définie grossièrement par notre expression régulière, et le personnage de Lorenzo sont statistiquement corrélées, comme semble le montrer le diagramme?
+# Comment faire pour savoir si l'idée de l'Amérique, définie grossièrement par notre expression régulière, et le personnage de Lorenzo sont statistiquement corrélés, comme semble le montrer le diagramme?
 # La corrélation est un concept utilisé pour mesurer l'association entre deux variables. 
 # Si cette association est forte, la variation de la valeur de la variable A suivra la variation de valeur de la variable B.
 # Lorsque les valeurs de deux variables augmentent ou diminuent ensemble, la corrélation est dite positive.
@@ -303,8 +304,8 @@ concordancier_f(texte = maria_v, motif = "états", contexte = 10, ignore_case = 
 # Plus le résultat du test se rapproche de zéro (0), plus la corrélation est faible.
 
 # Pour mesurer la corrélation entre des termes, nous avons besoin d'un contexte à l'intérieur duquel nous allons vérifier si les termes sont ou non présents.
-# On peut utiliser une unité neutre (ex.: tranches de 1000 mots) qui ne tienne pas compte de la division de l'oeuvre.
-# On peut également utiliser un contexte qui soit suggéré par l'oeuvre, telle la division en chapitres. C'est ce que nous allons faire ici.
+# On peut utiliser une unité neutre (ex.: tranches de 1000 mots) qui ne tienne pas compte de la division de l'œuvre.
+# On peut également utiliser un contexte qui soit suggéré par l'œuvre, telle la division en chapitres. C'est ce que nous allons faire ici.
 
 #### Préparation de la matrice de corrélation ----
 
@@ -391,7 +392,7 @@ barplot(matrice_correlation_f(dt = maria_df, motif_1 = "états", "lorenzo", igno
 # L'une des questions qui se posent lorsqu'on mesure l'association entre deux variables est celle de savoir à quel point cette association est due au hasard.
 # Le test de Pearson repose sur le concept d'hypothèse nulle selon laquelle deux valeurs ne sont pas corrélées.
 # Il s'agit donc de mesurer, à partir du nombre d'observations (ici, 16 pour 16 chapitres) et des valeurs obtenues, avec quelle confiance on peut rejeter l'hypothèse nulle.
-# L'une des mesure les plus souvent utilisées pour évaluer cette possiblité est la valeur p (probability value).
+# L'une des mesures les plus souvent utilisées pour évaluer cette possibilité est la valeur p (probability value).
 # La valeur p indique les chances que l'on obtienne par chance/hasard une valeur aussi extrême que la mesure de corrélation obtenue.
 # Un "p" plus petit ou égal à 0.01: très forte présomption contre l'hypothèse nulle;
 # Un "p" plus petit ou égal à 0.05: forte présomption contre l'hypothèse nulle;
