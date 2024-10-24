@@ -496,6 +496,7 @@ xyz_leger_dt[auteur == "Danus", .(auteur, texte)]
 
 #### Bibliographie ----
 # Benoit, Kenneth et Akitaka Matsuo. (2023). Spacyr: Wrapper to the 'spaCy' 'NLP' Library. https://spacyr.quanteda.io
-# Lancashire, Ian & Hirst, Graeme. (2009). Vocabulary Changes in Agatha Christie's Mysteries as an Indication of Dementia: A Case Study. 19Th Annual Rotman Research Institute Conference, Cognitive Aging: Research and Practice. 
-# Xuan Le, Ian Lancashire, Graeme Hirst et Regina Jokel. (2011). Longitudinal detection of dementia through lexical and syntactic changes in writing: a case study of three British novelists. Literary and Linguistic Computing, Volume 26, Issue 4, December 2011, p. 435–461, https://doi.org/10.1093/llc/fqr013
 # Jockers, Matthew, L. et Rosamond Thalken. 2020. Text Analysis With R For Students in Literature, Springer.
+# Lancashire, Ian & Hirst, Graeme. (2009). Vocabulary Changes in Agatha Christie's Mysteries as an Indication of Dementia: A Case Study. 19Th Annual Rotman Research Institute Conference, Cognitive Aging: Research and Practice. 
+# OpenAI, ChatGPT, modèle 4o, octobre 2024.
+# Xuan Le, Ian Lancashire, Graeme Hirst et Regina Jokel. (2011). Longitudinal detection of dementia through lexical and syntactic changes in writing: a case study of three British novelists. Literary and Linguistic Computing, Volume 26, Issue 4, December 2011, p. 435–461, https://doi.org/10.1093/llc/fqr013
