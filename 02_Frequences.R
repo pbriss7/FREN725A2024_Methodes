@@ -4,7 +4,7 @@
 
 # Maintenant que nous avons traité et transformé notre texte en un jeu de données, nous pouvons commencer à l'explorer.
 # L'analyse la plus simple à laquelle on puisse se livrer, dans le domaine du TAL, est celle de la fréquence des mots.
-# L'analyse de la fréquence lexicale permet d'obtenir un apercu des thèmes qui traversent des documents, de la présence/absence de personnages dans des chapitres donnés, etc.
+# L'analyse de la fréquence lexicale permet d'obtenir un aperçu des thèmes qui traversent des documents, de la présence/absence de personnages dans des chapitres donnés, etc.
 # La fréquence peut être brute (nombre de fois que tel mot apparaît dans tel chapitre) ou elle peut être pondérée et, possiblement, normalisée.
 # La pondération peut par exemple accorder un poids plus important à certains mots selon qu'ils sont ou non largement distribués à travers tous les documents. Cette pondération est appelée TF-IDF (Term Frequency / Inversed Document Frequency)
 # L'exploration du lexique se fera sur trois types de matrices:
