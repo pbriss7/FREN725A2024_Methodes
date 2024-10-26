@@ -452,4 +452,23 @@ exploration_clus_f(no_groupe = 3)
 # On pourrait ajouter à l'identifiant unique de chaque document le thème du numéro, puis observer la classification hiérarchique pour voir si les textes sont réunis au sein des mêmes clusters.
 # On pourrait aussi, par exemple, ajouter une étiquette à chaque texte selon le sexe de l'auteur pour voir si la classification des textes, sur la base des contenus lexicaux, tend à suivre cette variable.
 
+# Utilisez la fonction pour explorer les groupes. Modifiez le nombre de `k`, recomposez de nouveaux groupes et explorez-les à nouveau avec la fonction de visualisation.
+
+
+# À partir de cette exploration, on pourrait se demander si, par exemple, la thématique d'un numéro de la revue a un effet sur le vocabulaire des textes.
+# On pourrait ajouter à l'identifiant unique de chaque document le thème du numéro, puis observer la classification hiérarchique pour voir si les textes sont réunis au sein des mêmes clusters.
+# On pourrait aussi, par exemple, ajouter une étiquette à chaque texte selon le sexe de l'auteur pour voir si la classification des textes, sur la base des contenus lexicaux, tend à suivre cette variable.
+
+# À l'opposé, "prendre un café" et "aller dans un café" renvoient à deux actions très différentes, mais le mot "café" sera compté comme un seul jeton dans un BOW. 
+  
+# Des représentations beaucoup plus fines de la langue ont été introduites au début des années 2010 avec Word2Vec. 
+# Des modèles comme le skip-gram et le CBOW, introduits en 2013 par Google, tirent profit des séquences de mots (mais ignorent encore les contextes larges et les mots éloignés).
+# Les plus grandes avancées ont été faites dans la deuxième moitié des années 2010 avec l'arrivée des modèles de langue préentrainés sur de grandes quantités de textes.
+# Les modèles de type BERT (Bidirectional Encoder Representations from Transformers), introduits par Google en 2018, tiennent compte du contexte des mots aussi bien que de leur position dans la phrase.
+# Ils sont capables de saisir des relations entre des mots éloignés les uns des autres dans un texte aussi bien que de saisir les relations entre les mots dans une même phrase.
+# Ces modèles d'embeddings n'ont pas complètement résolu les problèmes d'ambiguïté sémantique évoqués ci-dessus, 
+# mais leur capacité à saisir des nuances et relations latentes dans des textes a significativement augmenté et permis l'amélioration de plusieurs tâches du TAL (classification, traduction automatique, génération de texte).
+
+# Pour en apprendre davantage sur l'évolution des modèles de langage, voir https://dr-arsanjani.medium.com/the-evolution-of-text-embeddings-75431139133d.
+# Voir également l'article fondateur du modèle BERT publié en 2018 par Delvin et al, https://arxiv.org/abs/1810.04805. 
 
